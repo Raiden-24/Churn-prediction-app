@@ -20,6 +20,18 @@ This application predicts whether a customer is likely to churn based on their a
 Adjust the sliders and dropdowns on the left to match a customer's profile and click 'Predict' to see the result.
 """)
 
+st.sidebar.header('Model Performance')
+
+# Load and display the classification report
+try:
+    with open("classification_report.txt", "r") as f:
+        report_text = f.read()
+    st.sidebar.text("Classification Report:")
+    # Use st.code to display the text in a formatted block
+    st.sidebar.code(report_text, language=None)
+except FileNotFoundError:
+    st.sidebar.warning("Classification report not found.")
+
 # --- Sidebar for User Input ---
 st.sidebar.header('Customer Account Details')
 
@@ -92,3 +104,4 @@ if st.button('Predict Churn', key='predict_button'):
         'Probability': [f"{prediction_proba[0][0]*100:.2f}%", f"{prediction_proba[0][1]*100:.2f}%"]
     }, index=['Not Churning', 'Churning'])
     st.dataframe(prob_df)
+
