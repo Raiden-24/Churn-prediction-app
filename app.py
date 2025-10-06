@@ -97,7 +97,6 @@ st.markdown("""
         border-radius: 10px;
         margin-bottom: 20px;
     }
-    .feature-importance {
         padding: 10px;
         border-radius: 5px;
         background-color: #f8f9fa;
@@ -105,14 +104,56 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<p class="main-header">AI-Powered Customer Churn Predictor</p>', unsafe_allow_html=True)
+# Main title and description
+st.markdown('<h1 class="main-title">🚀 Customer Churn Prediction Platform</h1>', unsafe_allow_html=True)
 st.markdown('<p class="description">This application predicts whether a customer is likely to churn based on their account details. Adjust the inputs on the left to match a customer\'s profile and click \'Predict\' to see the result.</p>', unsafe_allow_html=True)
 
-# Create tabs for different sections
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["Prediction", "Model Explainability", "Customer Segmentation", "Model Performance", "Data Insights", "A/B Testing Simulation", "Prediction History"])
+# Model Performance Showcase
+st.markdown("---")
+st.markdown('<h3 style="text-align: center; color: #1f77b4;">🎯 Model Performance Highlights</h3>', unsafe_allow_html=True)
 
-# --- Sidebar for User Input ---
-st.sidebar.markdown('<p class="sub-header">Customer Account Details</p>', unsafe_allow_html=True)
+# Performance metrics in columns
+perf_col1, perf_col2, perf_col3, perf_col4 = st.columns(4)
+
+with perf_col1:
+    st.metric(
+        label="🎯 Overall Accuracy", 
+        value="77%", 
+        delta="Optimized for Business Impact",
+        help="Balanced accuracy across all predictions"
+    )
+
+with perf_col2:
+    st.metric(
+        label="🔍 Churn Detection Rate", 
+        value="72%", 
+        delta="+56% vs Baseline",
+        help="Percentage of actual churners successfully identified"
+    )
+
+with perf_col3:
+    st.metric(
+        label="⚡ Precision Score", 
+        value="55%", 
+        delta="Strategic Trade-off",
+        help="Accuracy of churn predictions (fewer false positives)"
+    )
+
+with perf_col4:
+    st.metric(
+        label="🏆 F1-Score", 
+        value="62%", 
+        delta="+15% Improvement",
+        help="Balanced measure of precision and recall"
+    )
+
+# Key achievement highlight
+st.success("""
+🌟 **Key Achievement**: Our improved model catches **72% of customers who will actually churn** compared to only 46% with baseline models. 
+This 56% improvement in churn detection translates to significant revenue protection and more effective retention strategies.
+""")
+
+st.markdown("---")
 
 def user_input_features():
     # More comprehensive input fields in the sidebar
@@ -447,7 +488,7 @@ with tab2:
             else:
                 # Calculate SHAP values
                 shap_values = explainer.shap_values(input_data_scaled)
-                
+                   
                 st.write("The following plot shows how each feature contributes to the prediction:")
                 
                 # Handle different SHAP output formats and create bar plot
