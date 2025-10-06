@@ -155,6 +155,12 @@ This 56% improvement in churn detection translates to significant revenue protec
 
 st.markdown("---")
 
+# Create tabs for different sections
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(["Prediction", "Model Explainability", "Customer Segmentation", "Model Performance", "Data Insights", "A/B Testing Simulation", "Prediction History"])
+
+# --- Sidebar for User Input ---
+st.sidebar.markdown('<p class="sub-header">Customer Account Details</p>', unsafe_allow_html=True)
+
 def user_input_features():
     # More comprehensive input fields in the sidebar
     with st.sidebar.expander("Demographics", expanded=True):
