@@ -535,13 +535,59 @@ with tab2:
 with tab4:
     st.markdown('<p class="sub-header">Model Performance Metrics</p>', unsafe_allow_html=True)
     
-    # Load and display the classification report
+    # Display key performance metrics prominently
+    if is_improved_model:
+        st.subheader("🚀 Improved Model Performance")
+        
+        # Key metrics in columns
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Overall Accuracy", "77%", "Balanced performance")
+        with col2:
+            st.metric("Churn Recall", "72%", "+26% vs baseline")
+        with col3:
+            st.metric("Churn Precision", "55%", "Reduced false positives")
+        with col4:
+            st.metric("F1-Score (Churn)", "62%", "Balanced precision/recall")
+        
+        st.success("✅ **Model Optimization Success**: Improved churn detection recall from 46% to 72% while maintaining overall accuracy")
+        
+        # Model comparison
+        st.subheader("📊 Model Comparison")
+        comparison_data = {
+            'Metric': ['Overall Accuracy', 'Churn Recall', 'Churn Precision', 'F1-Score (Churn)'],
+            'Original Model': ['79%', '46%', '65%', '54%'],
+            'Improved Model': ['77%', '72%', '55%', '62%'],
+            'Business Impact': ['Slight decrease', '+56% improvement', 'Acceptable trade-off', '+15% improvement']
+        }
+        st.dataframe(pd.DataFrame(comparison_data), use_container_width=True)
+        
+        st.info("""
+        **Key Improvement**: The improved model prioritizes **churn recall** (finding actual churners) over precision. 
+        This means we catch 72% of customers who will churn vs only 46% with the original model. 
+        The slight decrease in precision is acceptable as it's better to over-predict churn than miss actual churners.
+        """)
+    else:
+        st.subheader("📈 Baseline Model Performance")
+        
+        # Key metrics in columns
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Overall Accuracy", "79%", "Strong baseline")
+        with col2:
+            st.metric("Churn Recall", "46%", "Needs improvement")
+        with col3:
+            st.metric("Churn Precision", "65%", "Good precision")
+        with col4:
+            st.metric("F1-Score (Churn)", "54%", "Baseline performance")
+    
+    # Load and display the detailed classification report
+    st.subheader("📋 Detailed Classification Report")
     try:
         if is_improved_model:
             with open("improved_classification_report.txt", "r") as f:
                 report_text = f.read()
             st.code(report_text, language=None)
-            st.success("✅ Using improved model with better recall for churn detection (72% vs 46% in original model)")
         else:
             with open("classification_report.txt", "r") as f:
                 report_text = f.read()
