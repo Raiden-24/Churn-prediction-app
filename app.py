@@ -30,6 +30,9 @@ if not os.path.exists('predictions'):
 # Function to load model and columns
 @st.cache_resource
 def load_model():
+    # Add this line to force fresh loading
+    st.cache_resource.clear()
+    
     try:
         # Try to load improved model first
         if os.path.exists('improved_churn_model.pkl') and os.path.exists('improved_churn_model_columns.pkl'):
